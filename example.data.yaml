@@ -1,0 +1,15 @@
+settings:
+  round_interests: True
+  first_payment: 2020-06-28
+  amount: 100
+
+debts:
+  - name: Car loan
+    debt: 1000
+    interest: 4.00
+  - name: Mortgage
+    debt: 10000
+    interest: 2.89
+  - name: Student loans
+    debt: 25000
+    interest: 2.8
