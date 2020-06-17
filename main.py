@@ -46,7 +46,7 @@ class Debt:
         return 0
 
     def __str__(self) -> str:
-        return '%s: %.2f, %.2f%% (paid %.2f and  %.2f)' % (self.name, self.starting_amount, self.interest, self.paid_amount, self.paid_interest)
+        return '%s: %.2f, %.2f%% (paid %.2f and %.2f)' % (self.name, self.starting_amount, self.interest, self.paid_amount, self.paid_interest)
 
 
 def read_data() -> ([Debt], []):
