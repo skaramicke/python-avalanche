@@ -1,8 +1,9 @@
 #!env/bin/python3
-from operator import itemgetter
+
 from matplotlib import pyplot
 import datetime as dt
 import yaml
+
 
 class Debt:
     name: str = ''
@@ -11,7 +12,7 @@ class Debt:
     interest: float = 0.0
     paid_amount: float = 0.0
     paid_interest: float = 0.0
-    
+
     def __init__(self, name: str, amount: float, interest: float):
         self.name = name
         self.starting_amount = amount
@@ -38,16 +39,16 @@ class Debt:
             self.amount = 0
             # print('%s. %.2f in. Finished. Remaining: %.2f' % (self, amount, amoritization))
             return amoritization
-            
+
         self.paid_amount += amoritization
         self.amount -= amoritization
         # print('%s. %.2f in. Paid %.2f interest and amoritized %.2f' % (self, amount, interest_amount, amoritization))
         return 0
 
-
     def __str__(self) -> str:
         return '%s: %.2f, %.2f%% (paid %.2f and  %.2f)' % (self.name, self.starting_amount, self.interest, self.paid_amount, self.paid_interest)
-    
+
+
 def read_data() -> ([Debt], []):
     settings = []
     debts = []
@@ -60,6 +61,7 @@ def read_data() -> ([Debt], []):
             debts.append(debt)
 
     return settings, debts
+
 
 def process():
     settings, debts = read_data()
@@ -77,7 +79,7 @@ def process():
         if 'round_interests' in settings and settings['round_interests']:
             interest = round(interest)
         interests += interest
-    
+
     payment = settings['amount'] - interests
 
     if payment < 0:
@@ -103,14 +105,21 @@ def process():
             sum_paid_amount += debt.paid_amount
             sum_paid_interest += debt.paid_interest
             print(debt)
-        
+
         start_date = settings['first_payment']
         end_date = start_date + dt.timedelta(weeks=months*4)
 
-        print('By %s you will have paid %.2f in debt and %.2f in interest over a period of %d months' % (end_date, sum_paid_amount, sum_paid_interest, months))
+        print('By %s you will have paid %.2f in debt and %.2f in interest over a period of %d months' % (
+            end_date,
+            sum_paid_amount,
+            sum_paid_interest,
+            months
+        ))
 
         for name in datasets:
             pyplot.plot(datasets[name])
         pyplot.savefig('graph.pdf')
+
+
 if __name__ == "__main__":
     process()
